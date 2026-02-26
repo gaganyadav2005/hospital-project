@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Panel - Appointments</title>
+
+<style>
+body{
+    background:#0d0d0d;
+    color:white;
+    font-family:Arial;
+    text-align:center;
+}
+
+h1{
+    color:#d4af37;
+}
+
+.card{
+    background:#1a1a1a;
+    margin:20px auto;
+    padding:20px;
+    width:600px;
+    border-radius:10px;
+    border:1px solid rgba(212,175,55,0.3);
+    text-align:left;
+}
+
+button{
+    background:#d4af37;
+    border:none;
+    padding:5px 15px;
+    margin-top:10px;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h1>All Appointments</h1>
+
+<div id="appointments"></div>
+
+<script>
+
+let data = JSON.parse(localStorage.getItem("appointments")) || [];
+const container = document.getElementById("appointments");
+
+function render(){
+    container.innerHTML = "";
+
+    if(data.length === 0){
+        container.innerHTML = "<p>No appointments yet.</p>";
+        return;
+    }
+
+    data.forEach((item, index)=>{
+        container.innerHTML += `
+        <div class="card">
+            <p><b>Expert:</b> ${item.expert}</p>
+            <p><b>Name:</b> ${item.name}</p>
+            <p><b>Email:</b> ${item.email}</p>
+            <p><b>Phone:</b> ${item.phone}</p>
+            <p><b>Time:</b> ${item.time}</p>
+            <p><b>Concern:</b> ${item.concern}</p>
+            <p><b>Date:</b> ${item.date}</p>
+            <button onclick="deleteAppointment(${index})">Delete</button>
+        </div>
+        `;
+    });
+}
+
+function deleteAppointment(index){
+    data.splice(index,1);
+    localStorage.setItem("appointments", JSON.stringify(data));
+    render();
+}
+
+render();
+
+</script>
+
+</body>
+</html>

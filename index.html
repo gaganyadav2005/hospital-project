@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Psychotient - Home</title>
+
+    <style>
+        body{
+            margin:0;
+            font-family:Arial;
+            color:white;
+            background: url("d.jpg") no-repeat center center/cover;
+        }
+
+        .overlay{
+            background: rgba(0,0,0,0.7);
+            min-height:100vh;
+        }
+
+        /* NAVBAR */
+        .navbar{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:15px 40px;
+            background:#000;
+        }
+
+        /* LEFT SIDE (LOGO + NAME) */
+        .logo-section{
+            display:flex;
+            align-items:center;
+        }
+
+        .logo-section img{
+            height:40px;
+            margin-right:10px;
+        }
+
+        .logo-section span{
+            color:#d4af37;
+            font-weight:bold;
+            font-size:18px;
+            letter-spacing:1px;
+        }
+
+        /* RIGHT SIDE LINKS */
+        .navbar a{
+            color:white;
+            text-decoration:none;
+            margin-left:25px;
+            font-size:15px;
+        }
+
+        .navbar a:hover{
+            color:#d4af37;
+        }
+
+        /* HERO */
+        .hero{
+            text-align:center;
+            padding:150px 20px 100px;
+        }
+
+        .hero h1{
+            color:#d4af37;
+            font-size:40px;
+        }
+
+        .hero p{
+            margin-top:20px;
+            width:60%;
+            margin-left:auto;
+            margin-right:auto;
+            line-height:1.6;
+            color:#ddd;
+        }
+
+        .hero a{
+            display:inline-block;
+            margin-top:30px;
+            padding:12px 30px;
+            background:#d4af37;
+            color:black;
+            text-decoration:none;
+            border-radius:30px;
+            font-weight:bold;
+        }
+
+        .hero a:hover{
+            background:white;
+        }
+
+        .footer{
+            text-align:center;
+            padding:20px;
+            background:#000;
+            color:#aaa;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="overlay">
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+
+        <!-- LEFT -->
+        <div class="logo-section">
+            <img src="a.png" alt="Logo">
+            <span>PSYCHOTIENT</span>
+        </div>
+
+        <!-- RIGHT -->
+        <div>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>  
+            <a href="services.html">Services</a>
+            <a href="experts.html">Experts</a>
+        </div>
+
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+        <h1>Welcome to Psychotient</h1>
+        <p>
+            We connect patients with certified Psychologists and Dietitians 
+            to improve mental wellness and nutrition through online consultation.
+        </p>
+        <a href="services.html">Explore Services</a>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        © 2026 Psychotient | All Rights Reserved
+    </div>
+
+</div>
+
+</body>
+</html>

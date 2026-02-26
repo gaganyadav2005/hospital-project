@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Psychotient - Experts</title>
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:#0d0d0d;
+    color:white;
+    text-align:center;
+}
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    padding:15px 40px;
+    background:#000;
+}
+
+.navbar a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+}
+
+.logo{
+    color:#d4af37;
+    font-weight:bold;
+}
+
+h1{
+    color:#d4af37;
+    margin-top:40px;
+}
+
+.expert-buttons{
+    margin-top:20px;
+}
+
+.expert-buttons button{
+    padding:8px 20px;
+    margin:10px;
+    border-radius:20px;
+    border:1px solid #d4af37;
+    background:#1a1a1a;
+    color:#d4af37;
+    cursor:pointer;
+}
+
+.expert-buttons button.active{
+    background:#d4af37;
+    color:black;
+}
+
+.profile-card{
+    background:#1a1a1a;
+    width:600px;
+    margin:40px auto;
+    padding:30px;
+    border-radius:20px;
+    border:1px solid rgba(212,175,55,0.3);
+}
+
+.profile-card img{
+    width:160px;
+    height:160px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid #d4af37;
+    margin-bottom:20px;
+}
+
+.designation{
+    color:#d4af37;
+    font-weight:bold;
+}
+
+.profile-card p{
+    color:#ccc;
+    line-height:1.6;
+}
+
+.profile-card ul{
+    list-style:none;
+    padding:0;
+}
+
+.profile-card ul li{
+    margin:6px 0;
+    color:#bbb;
+}
+
+/* BOOK BUTTON */
+.book-btn{
+    display:inline-block;
+    margin-top:25px;
+    padding:10px 25px;
+    border-radius:25px;
+    background:#d4af37;
+    color:black;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+.book-btn:hover{
+    background:white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="logo">PSYCHOTIENT</div>
+    <div>
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="experts.html">Experts</a>
+    </div>
+</div>
+
+<h1>Our Expert</h1>
+
+<div class="expert-buttons">
+    <button id="psyBtn" onclick="loadPsychology()">Psychology</button>
+    <button id="dietBtn" onclick="loadDietitian()">Dietitian</button>
+</div>
+
+<div class="profile-card">
+    <img id="expert-img">
+    <h2 id="expert-name"></h2>
+    <p id="expert-designation" class="designation"></p>
+    <p id="expert-description"></p>
+    <ul id="expert-list"></ul>
+
+    <!-- BOOK APPOINTMENT BUTTON -->
+    <a id="bookLink" class="book-btn">Book Appointment</a>
+
+</div>
+
+<script>
+
+function setActive(btn){
+    document.getElementById("psyBtn").classList.remove("active");
+    document.getElementById("dietBtn").classList.remove("active");
+    btn.classList.add("active");
+}
+
+function loadPsychology(){
+    document.getElementById("expert-img").src="g.jfif";
+    document.getElementById("expert-name").innerText="Ms. GEETANSHI SHARMA";
+    document.getElementById("expert-designation").innerText="B.A. Psychology (Hons.) – Clinical Trainee";
+    document.getElementById("expert-description").innerText=
+    "Currently pursuing B.A. Psychology (Hons.) with clinical exposure in counselling and psychiatric training.";
+    document.getElementById("expert-list").innerHTML=
+    "<li>Anxiety & Stress Management</li>\
+     <li>Emotional Well-being</li>\
+     <li>Behavioral Counselling</li>\
+     <li>Clinical Case Observation</li>";
+
+    document.getElementById("bookLink").href="appointment.html?expert=psychology";
+
+    setActive(document.getElementById("psyBtn"));
+}
+
+function loadDietitian(){
+    document.getElementById("expert-img").src="dietitian.jpg";
+    document.getElementById("expert-name").innerText="Ms. DIETITIAN NAME";
+    document.getElementById("expert-designation").innerText="Certified Clinical Dietitian & Nutritionist";
+    document.getElementById("expert-description").innerText=
+    "Specialized in personalized nutrition planning and therapeutic diet programs.";
+    document.getElementById("expert-list").innerHTML=
+    "<li>Weight Loss & Gain Programs</li>\
+     <li>PCOS & Thyroid Diet</li>\
+     <li>Diabetes Diet Planning</li>\
+     <li>Muscle Gain Nutrition</li>";
+
+    document.getElementById("bookLink").href="appointment.html?expert=dietitian";
+
+    setActive(document.getElementById("dietBtn"));
+}
+
+const params = new URLSearchParams(window.location.search);
+const type = params.get("type");
+
+if(type==="dietitian"){
+    loadDietitian();
+}else{
+    loadPsychology();
+}
+
+</script>
+
+</body>
+</html>

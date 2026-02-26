@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Psychotient - Book Appointment</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:#0d0d0d;
+    color:white;
+    text-align:center;
+}
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    padding:15px 40px;
+    background:#000;
+}
+
+.navbar a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+}
+
+.logo{
+    color:#d4af37;
+    font-weight:bold;
+}
+
+.form-container{
+    width:500px;
+    margin:60px auto;
+    background:#1a1a1a;
+    padding:30px;
+    border-radius:15px;
+    border:1px solid rgba(212,175,55,0.3);
+}
+
+h2{
+    color:#d4af37;
+}
+
+input, select, textarea{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    border-radius:8px;
+    border:none;
+    outline:none;
+}
+
+button{
+    margin-top:15px;
+    padding:10px 25px;
+    border:none;
+    border-radius:25px;
+    background:#d4af37;
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    background:white;
+}
+
+.success{
+    margin-top:20px;
+    color:#00ff88;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="logo">PSYCHOTIENT</div>
+    <div>
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="experts.html">Experts</a>
+    </div>
+</div>
+
+<div class="form-container">
+
+    <h2>Book Appointment</h2>
+
+    <p id="expertType" style="color:#d4af37;"></p>
+
+    <form id="appointmentForm">
+
+        <input type="text" id="name" placeholder="Full Name" required>
+        <input type="email" id="email" placeholder="Email Address" required>
+        <input type="tel" id="phone" placeholder="Phone Number" required>
+
+        <select id="time" required>
+            <option value="">Select Preferred Time</option>
+            <option>10:00 AM - 12:00 PM</option>
+            <option>12:00 PM - 3:00 PM</option>
+            <option>3:00 PM - 6:00 PM</option>
+        </select>
+
+        <textarea id="concern" rows="4" placeholder="Describe Your Concern"></textarea>
+
+        <button type="submit">Confirm Appointment</button>
+
+    </form>
+
+    <div id="successMsg" class="success"></div>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const expert = params.get("expert") || "psychology";
+
+document.getElementById("expertType").innerText =
+expert === "dietitian"
+? "You are booking an appointment with our Dietitian Expert."
+: "You are booking an appointment with our Psychology Expert.";
+
+
+const form = document.getElementById("appointmentForm");
+
+form.addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    const appointment = {
+        expert: expert,
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        time: document.getElementById("time").value,
+        concern: document.getElementById("concern").value,
+        date: new Date().toLocaleString()
+    };
+
+    try {
+        const response = await fetch("http://localhost:5000/appointment", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(appointment)
+        });
+
+        const data = await response.json();
+
+        document.getElementById("successMsg").innerText =
+        "✅ Appointment booked successfully!";
+
+        form.reset();
+
+    } catch(error){
+        alert("Server not connected!");
+        console.log(error);
+    }
+});
+
+</script>
+
+</body>
+</html>

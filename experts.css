@@ -1,0 +1,141 @@
+body{
+    margin:0;
+    font-family:Arial;
+    background:#0d0d0d;
+    color:white;
+}
+
+/* NAVBAR */
+nav{
+    display:flex;
+    justify-content:space-between;
+    padding:15px 40px;
+    background:#000;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+}
+
+nav a:hover{
+    color:#d4af37;
+}
+
+/* PAGE HEADER */
+.page-header{
+    text-align:center;
+    padding:60px 20px 20px 20px;
+}
+
+.page-header h1{
+    color:#d4af37;
+    font-size:34px;
+}
+
+/* EXPERT PROFILE */
+.expert-profile{
+    display:flex;
+    justify-content:center;
+    padding:80px 20px;
+}
+
+.profile-card{
+    max-width:750px;
+    background:#111;
+    padding:40px;
+    border-radius:20px;
+    border:1px solid rgba(212,175,55,0.3);
+    box-shadow:0 0 25px rgba(212,175,55,0.15);
+    text-align:center;
+}
+
+/* PHOTO */
+.profile-card img{
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    object-fit:cover;
+    object-position:center;
+    display:block;
+    margin:0 auto 20px auto;
+    border:4px solid #d4af37;
+    box-shadow:0 0 25px rgba(212,175,55,0.7);
+}
+
+/* NAME */
+.profile-info h2{
+    color:#d4af37;
+    margin-bottom:5px;
+    font-size:26px;
+}
+
+/* DESIGNATION */
+.designation{
+    color:#bbb;
+    font-size:14px;
+}
+
+/* GOLD LINE */
+.gold-line{
+    width:80px;
+    height:3px;
+    background:#d4af37;
+    margin:15px auto 25px auto;
+    border-radius:5px;
+}
+
+/* TEXT */
+.profile-info p{
+    line-height:1.7;
+    color:#ccc;
+    margin-bottom:15px;
+}
+
+.profile-info h4{
+    margin-top:25px;
+    color:#d4af37;
+}
+
+.profile-info ul{
+    list-style:none;
+    padding:0;
+    margin-top:10px;
+}
+
+.profile-info ul li{
+    margin-bottom:8px;
+    color:#bbb;
+}
+
+/* BUTTON */
+.appointment-btn{
+    display:inline-block;
+    margin-top:25px;
+    padding:12px 25px;
+    background:#d4af37;
+    color:black;
+    text-decoration:none;
+    font-weight:bold;
+    border-radius:30px;
+    transition:0.3s;
+    box-shadow:0 0 15px rgba(212,175,55,0.6);
+}
+
+.appointment-btn:hover{
+    background:white;
+    transform:translateY(-3px);
+    box-shadow:0 0 25px rgba(212,175,55,0.9);
+}
+
+/* MOBILE */
+@media(max-width:768px){
+    .profile-card{
+        padding:25px;
+    }
+
+    .profile-card img{
+        width:160px;
+        height:160px;
+    }
+}
