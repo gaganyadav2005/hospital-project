@@ -11,12 +11,13 @@ app.use(express.json());
 
 /* ===== STATIC FRONTEND SERVE ===== */
 
-app.use(express.static(path.join(__dirname)));
+// IMPORTANT FIX
+app.use(express.static(__dirname));
 
-/* ===== ROOT ROUTE (IMPORTANT FIX) ===== */
+/* ===== ROOT ROUTE ===== */
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "index.html"));
+    res.sendFile(__dirname + "/index.html");
 });
 
 /* ===== ADMIN CONFIG ===== */
