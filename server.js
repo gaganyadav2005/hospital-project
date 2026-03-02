@@ -11,13 +11,13 @@ app.use(express.json());
 
 /* ===== STATIC FRONTEND SERVE ===== */
 
-// IMPORTANT FIX
-app.use(express.static(__dirname));
+// SERVE PUBLIC FOLDER (IMPORTANT)
+app.use(express.static(path.join(__dirname, "public")));
 
 /* ===== ROOT ROUTE ===== */
 
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/index.html");
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 /* ===== ADMIN CONFIG ===== */
@@ -156,7 +156,7 @@ Your appointment status is now: ${status}
     }
 });
 
-/* ===== PORT FIX (RENDER COMPATIBLE) ===== */
+/* ===== PORT FIX ===== */
 
 const PORT = process.env.PORT || 5000;
 
