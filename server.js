@@ -2,21 +2,30 @@ const express = require("express");
 const cors = require("cors");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
+const path = require("path");
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
-let appointments = [];
+/* ===== STATIC FRONTEND SERVE ===== */
 
-/* ================= ADMIN CONFIG ================= */
+app.use(express.static(__dirname));
+
+/* ===== ROOT ROUTE (IMPORTANT FIX) ===== */
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "index.html"));
+});
+
+/* ===== ADMIN CONFIG ===== */
 
 const ADMIN_EMAIL = "admin@psychotient.com";
 const ADMIN_PASSWORD = "admin123";
 const SECRET_KEY = process.env.SECRET_KEY || "supersecretkey";
 
-/* ================= EMAIL CONFIG ================= */
-/* IMPORTANT: EMAIL_USER & EMAIL_PASS Render/GitHub pe ENV me set karna */
+/* ===== EMAIL CONFIG ===== */
 
 const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -26,7 +35,7 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-/* ================= ADMIN LOGIN ================= */
+/* ===== ADMIN LOGIN ===== */
 
 app.post("/admin/login", (req, res) => {
 
@@ -52,7 +61,7 @@ app.post("/admin/login", (req, res) => {
     }
 });
 
-/* ================= VERIFY ADMIN ================= */
+/* ===== VERIFY ADMIN ===== */
 
 function verifyAdmin(req, res, next) {
 
@@ -70,7 +79,11 @@ function verifyAdmin(req, res, next) {
     }
 }
 
-/* ================= BOOK APPOINTMENT ================= */
+/* ===== MEMORY STORAGE ===== */
+
+let appointments = [];
+
+/* ===== BOOK APPOINTMENT ===== */
 
 app.post("/appointment", async (req, res) => {
 
@@ -82,16 +95,14 @@ app.post("/appointment", async (req, res) => {
 
         await transporter.sendMail({
             from: process.env.EMAIL_USER,
-            to: process.env.EMAIL_USER,   // expert email
+            to: process.env.EMAIL_USER,
             replyTo: data.email,
-            subject: "New Appointment Booking - Psychotient",
+            subject: "New Appointment Booking",
             text: `
-Expert Type: ${data.expert}
 Name: ${data.name}
 Email: ${data.email}
 Phone: ${data.phone}
 Date: ${data.date}
-Time: ${data.time}
 Concern: ${data.concern}
 Status: ${data.status}
 `
@@ -105,13 +116,13 @@ Status: ${data.status}
     }
 });
 
-/* ================= GET APPOINTMENTS ================= */
+/* ===== GET APPOINTMENTS ===== */
 
 app.get("/appointments", verifyAdmin, (req, res) => {
     res.json(appointments);
 });
 
-/* ================= UPDATE STATUS ================= */
+/* ===== UPDATE STATUS ===== */
 
 app.put("/appointment/:index", verifyAdmin, async (req, res) => {
 
@@ -129,13 +140,11 @@ app.put("/appointment/:index", verifyAdmin, async (req, res) => {
         await transporter.sendMail({
             from: process.env.EMAIL_USER,
             to: appointments[index].email,
-            subject: "Appointment Status Update - Psychotient",
+            subject: "Appointment Status Update",
             text: `
 Hello ${appointments[index].name},
 
 Your appointment status is now: ${status}
-
-Psychotient Team
 `
         });
 
@@ -146,7 +155,7 @@ Psychotient Team
     }
 });
 
-/* ================= PORT FIX FOR DEPLOY ================= */
+/* ===== PORT FIX (RENDER COMPATIBLE) ===== */
 
 const PORT = process.env.PORT || 5000;
 

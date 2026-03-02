@@ -11,7 +11,7 @@ form.addEventListener("submit", async (e) => {
         date: document.getElementById("date").value,
     };
 
-    const res = await fetch("http://localhost:5000/appointment", {
+    const res = await fetch("/appointment", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

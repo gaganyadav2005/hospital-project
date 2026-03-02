@@ -7,14 +7,14 @@ const expertsData = {
     psychology: [
         {
             name: "Dr. Geetanshi Sharma",
-            image: "aman.jpg",
+            image: "z.jpg",
             about: "Clinical Psychologist with 8+ years experience in anxiety and stress management."
         },
         
     ],
     diet: [
         {
-            name: "Dr. Riya Kapoor",
+            name: "Dr. AAkriti Jain",
             image: "riya.jpg",
             about: "Certified Dietitian helping clients with weight loss and lifestyle improvement."
         },
