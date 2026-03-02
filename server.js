@@ -11,12 +11,17 @@ app.use(express.json());
 
 /* ===== STATIC FRONTEND SERVE ===== */
 
-// SERVE PUBLIC FOLDER (IMPORTANT)
 app.use(express.static(path.join(__dirname, "public")));
 
 /* ===== ROOT ROUTE ===== */
 
 app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+/* 🔥 IMPORTANT RENDER FIX */
+
+app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
@@ -156,7 +161,7 @@ Your appointment status is now: ${status}
     }
 });
 
-/* ===== PORT FIX ===== */
+/* ===== PORT ===== */
 
 const PORT = process.env.PORT || 5000;
 
