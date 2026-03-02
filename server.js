@@ -11,7 +11,7 @@ app.use(express.json());
 
 /* ===== STATIC FRONTEND SERVE ===== */
 
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname)));
 
 /* ===== ROOT ROUTE (IMPORTANT FIX) ===== */
 
