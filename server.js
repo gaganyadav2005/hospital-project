@@ -19,9 +19,9 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-/* 🔥 IMPORTANT RENDER FIX */
+/* 🔥 RAILWAY FIX */
 
-app.get("*", (req, res) => {
+app.get("/*", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
