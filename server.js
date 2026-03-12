@@ -13,18 +13,6 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "public")));
 
-/* ===== ROOT ROUTE ===== */
-
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
-/* ===== FALLBACK ROUTE (FIX FOR RAILWAY) ===== */
-
-app.use((req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
 /* ===== ADMIN CONFIG ===== */
 
 const ADMIN_EMAIL = "admin@psychotient.com";
@@ -95,6 +83,7 @@ app.post("/appointment", async (req, res) => {
 
     const data = req.body;
     data.status = "Pending";
+
     appointments.push(data);
 
     try {
@@ -114,11 +103,15 @@ Status: ${data.status}
 `
         });
 
-        res.json({ message: "Appointment Saved & Email Sent" });
+        return res.json({ message: "Appointment booked successfully" });
 
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: "Email failed" });
+
+        console.log("Email error:", error);
+
+        return res.json({
+            message: "Appointment saved but email failed"
+        });
     }
 });
 
@@ -157,8 +150,20 @@ Your appointment status is now: ${status}
         res.json({ message: "Status updated & email sent" });
 
     } catch (error) {
-        res.status(500).json({ message: "Status updated but email failed" });
+        res.json({ message: "Status updated but email failed" });
     }
+});
+
+/* ===== ROOT ROUTE ===== */
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+/* ===== FALLBACK ROUTE (IMPORTANT - LAST) ===== */
+
+app.use((req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 /* ===== PORT ===== */
