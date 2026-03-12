@@ -13,13 +13,11 @@ form.addEventListener("submit", async function(e){
 e.preventDefault();
 
 const appointment = {
-expert: expert,
 name: document.getElementById("name").value,
 email: document.getElementById("email").value,
 phone: document.getElementById("phone").value,
-time: document.getElementById("time").value,
 concern: document.getElementById("concern").value,
-date: new Date().toLocaleString()
+date: document.getElementById("time").value
 };
 
 try{
