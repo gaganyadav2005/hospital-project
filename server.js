@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-/* ===== STATIC FRONTEND SERVE ===== */
+/* ===== STATIC FRONTEND ===== */
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -19,9 +19,9 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-/* 🔥 RAILWAY FIX */
+/* ===== FALLBACK ROUTE (FIX FOR RAILWAY) ===== */
 
-app.get("/*", (req, res) => {
+app.use((req, res) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
