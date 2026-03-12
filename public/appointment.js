@@ -1,24 +1,54 @@
+const params = new URLSearchParams(window.location.search);
+const expert = params.get("expert") || "psychology";
+
+document.getElementById("expertType").innerText =
+expert === "dietitian"
+? "You are booking an appointment with our Dietitian Expert."
+: "You are booking an appointment with our Psychology Expert.";
+
 const form = document.getElementById("appointmentForm");
 
-form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+form.addEventListener("submit", async function(e){
 
-    const formData = {
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        phone: document.getElementById("phone").value,
-        concern: document.getElementById("concern").value,
-        date: document.getElementById("date").value,
-    };
+e.preventDefault();
 
-    const res = await fetch("/appointment", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
-    });
+const appointment = {
+expert: expert,
+name: document.getElementById("name").value,
+email: document.getElementById("email").value,
+phone: document.getElementById("phone").value,
+time: document.getElementById("time").value,
+concern: document.getElementById("concern").value,
+date: new Date().toLocaleString()
+};
 
-    const data = await res.json();
-    alert("Appointment Sent Successfully");
+try{
+
+const response = await fetch(window.location.origin + "/appointment",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body: JSON.stringify(appointment)
+
+});
+
+const data = await response.json();
+
+document.getElementById("successMsg").innerText =
+"✅ Appointment booked successfully!";
+
+form.reset();
+
+}catch(error){
+
+alert("Server error! Please try again.");
+
+console.log(error);
+
+}
+
 });

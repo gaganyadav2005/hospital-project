@@ -1,48 +1,84 @@
-<script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Book Appointment</title>
 
-const params = new URLSearchParams(window.location.search);
-const expert = params.get("expert") || "psychology";
+<style>
+body{
+font-family: Arial;
+background:#f5f5f5;
+padding:40px;
+}
 
-document.getElementById("expertType").innerText =
-expert === "dietitian"
-? "You are booking an appointment with our Dietitian Expert."
-: "You are booking an appointment with our Psychology Expert.";
+.container{
+max-width:500px;
+margin:auto;
+background:white;
+padding:25px;
+border-radius:8px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
 
-const form = document.getElementById("appointmentForm");
+input,textarea{
+width:100%;
+padding:10px;
+margin-top:10px;
+margin-bottom:15px;
+border:1px solid #ccc;
+border-radius:4px;
+}
 
-form.addEventListener("submit", async function(e){
-    e.preventDefault();
+button{
+background:#007BFF;
+color:white;
+padding:10px;
+border:none;
+border-radius:4px;
+cursor:pointer;
+}
 
-    const appointment = {
-        expert: expert,
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        phone: document.getElementById("phone").value,
-        time: document.getElementById("time").value,
-        concern: document.getElementById("concern").value,
-        date: new Date().toLocaleString()
-    };
+button:hover{
+background:#0056b3;
+}
 
-    try {
-        const response = await fetch("/appointment", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(appointment)
-        });
+#successMsg{
+color:green;
+margin-top:10px;
+}
+</style>
 
-        const data = await response.json();
+</head>
 
-        document.getElementById("successMsg").innerText =
-        "✅ Appointment booked successfully!";
+<body>
 
-        form.reset();
+<div class="container">
 
-    } catch(error){
-        alert("Server not connected!");
-        console.log(error);
-    }
-});
+<h2>Book Appointment</h2>
 
-</script>
+<p id="expertType"></p>
+
+<form id="appointmentForm">
+
+<input type="text" id="name" placeholder="Your Name" required>
+
+<input type="email" id="email" placeholder="Your Email" required>
+
+<input type="text" id="phone" placeholder="Phone Number" required>
+
+<input type="time" id="time" required>
+
+<textarea id="concern" placeholder="Your Concern"></textarea>
+
+<button type="submit">Book Appointment</button>
+
+</form>
+
+<p id="successMsg"></p>
+
+</div>
+
+<script src="appointment.js"></script>
+
+</body>
+</html>
